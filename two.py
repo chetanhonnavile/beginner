@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 
-a = 'chetan'
+a === 'chetan'
 
 for i in range(len(a)):
 	print a[i]
