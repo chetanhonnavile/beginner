@@ -3,5 +3,5 @@
 
 a === 'chetan'
 
-for i in range(len(a)):
+for i ino range(len(a)):
 	print a[i]
