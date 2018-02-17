@@ -17,6 +17,13 @@ class Frequent():
 			print "Input list containing more than one element"
 
 
+def most_frequent(given_list):
+    if len(given_list) <= 1 and len(given_list) == 0:
+        return None
+    else:
+        for key,value in Counter(given_list).items():
+            if max(Counter(given_list).values()) == value:
+                return key
 
 
 freq = Frequent(['a','v','r','p','p','c','v','v','r','r','r'])
