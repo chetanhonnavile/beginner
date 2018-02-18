@@ -4,27 +4,31 @@ class is_rotate():
 
         self.list1 = list1
         self.list2 = list2
-        #find the index of list1's first element in list2
-        d = list2.index(list1[0])
-        new = list2[d:]+list2[:d]
-        if new == list1:
-            print "rotation true"
+        if len(list1) != len(list2) and set(list1) != set(list2):
+            print  "Rotation False"
         else:
-
-            print "rotation false"
+        #find the index of list1's first element in list2
+            d = list2.index(list1[0])
+            new = list2[d:]+list2[:d]
+            if new == list1:
+                 print "rotation true"
 
     def rotate(self):
-
-        # find the index of list1's first element in list2
-        d = self.list2.index(self.list1[0])
-        new = self.list2[d:] + self.list2[:d]
-        if new == self.list1:
-            return True
-        else:
-
+        if len(self.list1) != len(self.list2) and set(self.list1) != set(self.list2):
             return False
+        else:
+            # find the index of list1's first element in list2
+            d = self.list2.index(self.list1[0])
+            new = self.list2[d:] + self.list2[:d]
+            if new == self.list1:
+                return True
+            else:
+
+                return False
 
     def rotater(self,list3,list4):
+        if len(list3) != len(list4) and set(list3) != set(list4):
+            return False
         list3= list3
         list4 = list4
         # find the index of list1's first element in list2
@@ -37,7 +41,7 @@ class is_rotate():
             return False
 
 
-obj = is_rotate([1,2,3,4,5,6,7],[4,5,6,9,7,1,2,3])
+obj = is_rotate([1,2,3,4,5,6,7],[4,5,6,7,1,2,3])
 
 print obj.rotate()
 
