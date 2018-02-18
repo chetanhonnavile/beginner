@@ -8,7 +8,7 @@ class Matrix():
 
         mat = []
         # first create empty lists of n col
-        for i in range(0,col):
+        for i in range(0,row):
             mat.append([])
 
         #initialise the values with zeroes
