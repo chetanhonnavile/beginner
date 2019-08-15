@@ -1,0 +1,17 @@
+c  = [3, 4, 6, 8, 9]
+d = [3, 4, 6, 8, 9, 1, 2, 3, 4]
+
+
+def addup(a,b):
+  res = []
+  for i in zip(a,b):
+    res.append(sum(i))
+  return res
+    
+if len(c) > len(d):
+    res = addup(c,d)+c[len(d):]
+else:
+    res = addup(c,d)+d[len(c):]
+    
+ print res
+    
