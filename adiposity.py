@@ -1,8 +1,5 @@
 import sys
 import re
-import texttable
-
-
 
 class BAICalculator:
     """ Class to calculate Body Adiposity Index based on given age, height and hip circumference """
@@ -14,12 +11,14 @@ class BAICalculator:
         """
         Updates the data dict with user input values
 
-        returns: Nothing
+        returns: None
         """
         self.age = age
         self.height = height
         self.hip = hip
-        details = {self.sampleNum:{"age":self.age, "height":self.height, "hip":self.hip}}
+        details = {self.sampleNum:{"age":self.age,
+                                  "height":self.height, 
+                                  "hip":self.hip}}
         self.data.update(details)
 
     def getSampleDetails(self, sampleNum) -> dict:
@@ -83,10 +82,12 @@ class BAICalculator:
             
                  
         print("Summary of aggregated stats".center(40,"*"))
-        #print(self.data)
-        for i, j in self.data.items():
-            print(i, self.data[i]["bai"])
-        print("*"*40)
+        print("{:<15} {:<15}".format('SampleId', 'Result'))
+        print("-"*30)
+        for k, v in self.data.items():
+            print ("{:<15} {:<15}".format(i, self.data[i]["bai"]))
+        
+        print("-"*30)
 
 
 def quit():
@@ -184,7 +185,6 @@ def checkHipCircumference():
             return hipc_inches        
         else:
             print("Hip: Bad hipcircumference input, pls re enter")
-
 
     
 def main():
