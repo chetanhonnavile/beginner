@@ -1,6 +1,6 @@
 import sys
 import re
-#import texttable
+import texttable
 
 
 
@@ -36,13 +36,13 @@ class BAICalculator:
         """
         return self.data
 
-    def computeBai(self, values) -> float:
+    def computeBai(self, values) -> int:
         """
         param: Values nothing but age, height and hipcircumference
         Computes the BAI using formula 
         return: usually float value
         """
-        return (values["hip"]/values["height"]**1.5)-18
+        return int((values["hip"]/values["height"]**1.5)-18)
 
     def displayStats(self):
         """ Displays the result for which category does the sampleId belong """
@@ -51,7 +51,7 @@ class BAICalculator:
             self.data[sampleId]["result"]=self.computeBai(values)
         
         for i, j in self.data.items():
-            if 20 < self.data[i]["age"] < 39:
+            if 20 <= self.data[i]["age"] <= 39:
                 if self.data[i]["result"] < 9:
                     self.data[i]["bai"] = "Underweight"
                 elif 9 < self.data[i]["result"] < 21:
@@ -61,7 +61,7 @@ class BAICalculator:
                 else:
                     self.data[i]["bai"] = "Obese"
 
-            if 40 < self.data[i]["age"] < 59:
+            if 40 <= self.data[i]["age"] <= 59:
                 if self.data[i]["result"] < 11:
                     self.data[i]["bai"] = "Underweight"
                 elif 11 < self.data[i]["result"] < 23:
@@ -71,7 +71,7 @@ class BAICalculator:
                 else:
                     self.data[i]["bai"] = "Obese"
 
-            if 60 < self.data[i]["age"] < 79:
+            if 60 <= self.data[i]["age"] <= 79:
                 if self.data[i]["result"] < 13:
                     self.data[i]["bai"] = "Underweight"
                 elif 13 < self.data[i]["result"] < 25:
@@ -83,9 +83,14 @@ class BAICalculator:
             
                  
         print("Summary of aggregated stats".center(40,"*"))
+        #print(self.data)
         for i, j in self.data.items():
             print(i, self.data[i]["bai"])
         print("*"*40)
+
+
+def quit():
+    sys.exit("Thanks for using BAI Application!")
 
     
 def convertToMeters(num, unit):
@@ -186,41 +191,47 @@ def main():
     print("Welcome to BAI Calculator".center(50,"-"))
     sampleNumber = 0
     Flag = True
-    print("""Press the option keys as below:
-        1 or C: Continue with entering sample details
-        2 or Q: Quit the application""")
-    resp = input()
-    if resp in [str(2), 'q', 'Q']:
-        print("Thanks for using BAI application")
-        sys.exit()
-    elif resp in [str(1), 'c', 'C']:
-        while(True):
-            sampleNumber += 1
-            sampleId = "sample"+str(sampleNumber).zfill(3)
-            print(f"Please Enter the details for {sampleId}")
-            age    = checkAge()
-            height = checkHeight()
-            hipc   = checkHipCircumference()
-            sample = BAICalculator(sampleId)
-            sample.update(age, height, hipc)
-            Flag1 = True
-            while(Flag1):
-                print("""Press the option keys as below:
-                1 or C: Continue with entering sample details
-                2 or Q: Quit the application
-                3 or G: Display group(s) stats""")
-                resp = input()
-                if resp in [str(1), 'c', 'C']:
-                    Flag1 = False
-                elif resp in [str(2), 'q', 'Q']:
-                    print("Thanks for using BAI application")
-                    sys.exit()
-                elif resp in [str(3), 'g', 'G']:
-                    sample.displayStats()
-                else:
-                    print("Bad input, pls try again!!")
-    else:
-        print("Bad input, pls try again!!")
+    max_attempts = 0
+    while(Flag):       
+        print("""Press the option keys as below:
+            1 or C: Continue with entering sample details
+            2 or Q: Quit the application""")
+        resp = input()
+        if resp in [str(2), 'q', 'Q']:
+            quit()
+        elif resp in [str(1), 'c', 'C']:
+            while(True):
+                sampleNumber += 1
+                sampleId = "sample"+str(sampleNumber).zfill(3)
+                print(f"Please Enter the details for {sampleId}")
+                age    = checkAge()
+                height = checkHeight()
+                hipc   = checkHipCircumference()
+                sample = BAICalculator(sampleId)
+                sample.update(age, height, hipc)
+                Flag1 = True
+                while(Flag1):
+                    print("""Press the option keys as below:
+                    1 or C: Continue with entering sample details
+                    2 or Q: Quit the application
+                    3 or G: Display group(s) stats""")
+                    resp = input()
+                    if resp in [str(1), 'c', 'C']:
+                        break
+                    elif resp in [str(2), 'q', 'Q']:
+                        quit()
+                    elif resp in [str(3), 'g', 'G']:
+                        sample.displayStats()
+                    else:
+                        print("Bad input, pls try again!!")
+        else:
+            max_attempts += 1
+            if max_attempts == 3:
+                print("You have reached maximum attempts, pls start over")
+                quit()
+
+            print("Bad input, pls try again!!")
+            
 
 if __name__ == "__main__":
     main()
